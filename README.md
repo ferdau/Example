@@ -6,31 +6,32 @@ About happening
 ---------------
 In case you don't know what this is about: Happening is a group app for iOS and Android, that allows you to create your own plugins in minutes. To get started signup at: https://develop.happening.im
 
-Don't worry: plugins are just Javascript (or CoffeeScript), both client-side and server-side. However, the powerful Happening environment provides you with user group details, a database that syncs to all clients, reactive user-interface widgets, and html/css for whatever else you may want to do. That social app you've wanted to build for ages, but didn't because it'd take you weeks? You'll finish it tonight.
+Don't worry: plugins (also called Group Apps) are just Javascript (or CoffeeScript), both client-side and server-side. However, the powerful Happening environment provides you with user group details, a database that syncs to all clients, reactive user-interface widgets, and html/css for whatever else you may want to do. That social app you've wanted to build for ages, but didn't because it'd take you weeks? You'll finish it tonight.
 
-Deploying your plugin
----------------------
-_This guide assumes you can run bash scripts (you're fine on osx or linux, although you might need to download the git, zip and curl applications. For windows I suggest downloading git for windows, which also has a nice bash console: http://git-scm.com/download/win)_
+Getting started
+---------------
+On Linux/Mac, use your Bash-compatible shell. On Windows, we recommend git console that comes with [git](http://git-scm.com/download/win).
 
-Start by cloning the example code
-```git clone https://github.com/happening/Example.git```
+1. Clone the example code: `git clone https://github.com/happening/Example.git`.
 
-To deploy your plugin to the "My group apps" happening, follow the instructions below.
-Firstly, you'll need your "upload code".
-* Go to the "My group apps" happening and click on the little "console" icon next to the app which has been created for you (or create a fresh one first by pressing the "+ Create new group app" button )
-* That will open a informational window containing a script to clone and immediatly deploy your app
-* The line `./deploy 1234567890` contains your "upload code", copy it to your clipboard.
+2. Navigate to https://happening.im/dev. This will redirect you to the special "My group apps" happening, possibly after logging in.
 
-Paste your upload code in the `.deploykey` file.
+3. Tapping the console icon next to your plugin will open its development console. Copy the plugin's __upload code__ to a file: `echo 1234567890 > .deploykey`.
 
-In case you don't want to upload certain files, edit the `.deployignore` and add each file on a new line (wildcards are supported using an asterisk *, eg. *.psd). This file already holds the _.deploykey_ file, so that your upload code won't be sent to the plugin servers.
+4. Deploy your plugin using `./deploy`. It should instantaneously update in your browser.
 
-All that's left now is running `./deploy`
+Manifest
+--------
+`manifest` holds your app configuration. Supported keys:
 
-_In case you're missing zip in windows, download the 63Kb version [here](http://jaapmoolenaar.nl/assets/bin/zip.exe) and put it in a folder accessible by your PATH configuration_
+- __name__ Name of your plugin.
+- __desciption__ Description of your plugin.
+- __api__ API version, don't use anything other than `2`
 
-The manifest file
------------------
-The manifest file holds configuration for you app. You can set things like `name`, `description` and `icon` here (a comprehensive list of all available icons will be made available shortly)
+Distribution
+------------
+On the development console, you will find a __share code__ besides the upload code. By searching for this code in the Group App store in other happenings, you can add your custom plugin (making it instantaneously available to all its members!).
 
-Another important setting in the manifest file is the `api` setting, if you ommit it or set it to 1 the "legacy api" will be used. Make sure you set it to 2 unless you know what you're doing.
+Once added, the plugin will be upgraded within 60 minutes of you updating the plugin in "My group apps". `exports.onUpgrade` will be called, use this to update the data store. You can view your plugin's log and database for these other Happenings on the development console. Use this to debug problems with these instances.
+
+If you feel your Group App should be placed in the Group App store, let us know.

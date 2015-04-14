@@ -2,5 +2,5 @@
 .deployignore
 .deploykey
 LICENSE
-README.md
+*.md
 deploy
