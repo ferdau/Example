@@ -14,11 +14,8 @@ exports.client_getTime = (cb) ->
 
 exports.onHttp = (request) ->
 	# special entrypoint for the Http API: called whenever a request is made to our plugin's inbound URL
-	if (data = request.data)?
-		Db.shared.set 'http', data
-	else
-		data = Db.shared.get('http')
-	request.respond 200, data || "no data"
+	Db.shared.set 'http', data
+	request.respond 200, "Thanks for your input\n"
 
 exports.client_fetchHn = ->
 	Http = require 'http'
@@ -43,10 +40,17 @@ exports.hnResponse = (data) !->
 		id++
 
 exports.onPhoto = (info) !->
+	# entrypoint when a photo is uploaded by the plugin
+	log 'onPhoto', JSON.stringify(info)
 	Db.shared.set 'photo', info.key
 
 exports.client_event = !->
+	# send push event to all group members
 	Event = require 'event'
 	Event.create
 		text: "Test event"
-		# sender: Plugin.userId() - use this to prevent event to sender
+		# sender: Plugin.userId() # prevent push (but bubble) to sender
+		# for: [1, 2] # to only include group members 1 and 2
+		# for: [-3] # to exclude group member 3
+		# for: ['admin', 2] # to group admins and member 2
+
