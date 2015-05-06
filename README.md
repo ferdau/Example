@@ -10,7 +10,7 @@ Group Apps (also called Plugins) are just Javascript or CoffeeScript. The powerf
 
 Getting started
 ---------------
-On Linux/Mac, use your Bash-compatible shell. On Windows, we recommend the Git console that comes with [Git](http://git-scm.com/download/win).
+On Linux/Mac, use your Bash-compatible shell. On Windows, we recommend the Git console that comes with [Git](http://git-scm.com/download/win) - additionally you might need to install [zip.exe](http://gnuwin32.sourceforge.net/packages/zip.htm).
 
 1. Clone the example code: `git clone https://github.com/happening/Example.git`.
 
