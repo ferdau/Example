@@ -14,7 +14,7 @@ exports.client_getTime = (cb) ->
 
 exports.onHttp = (request) ->
 	# special entrypoint for the Http API: called whenever a request is made to our plugin's inbound URL
-	Db.shared.set 'http', data
+	Db.shared.set 'http', request.data
 	request.respond 200, "Thanks for your input\n"
 
 exports.client_fetchHn = ->
